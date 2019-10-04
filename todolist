@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>For Fun</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+    <script src="mainjs.js"></script>
+    <p style="color: black">
+        <a href="image.jpg" width="30%" height="30%">Натисни, щоб побачити гарну картинку)
+        </a>
+    </p>
+
+    <div id="myDIV" class="header">
+        <h2>My To Do List (це тіпа список, що ти маєш зробити на морі, можеш дописувати свої)</h2>
+        <input type="text" name="" id="myInput">
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+    <ul id="myUL">
+        <li>Зробити масаж</li>
+        <li>Спробувати новий коктейль</li>
+        <li>Знайти сузір'я, які знаєш</li>
+        <li>Поїздити на верблюді (ну це якщо захочеш, ахаха!)</li>
+        <li>Засмагнути, шоб аби ну. Йомайо</li>
+        <li>Познайомитися з мужчиною/хлопчиною гарним, вихованим, багатим ;)</li>
+        <li>Вивчити декілька слів по-турецьки, потім мені сказати</li>
+        <li>Написати в останній день відпочинку, які були враження</li>
+    </ul>
+
+    <h3 style="color: brown">Не знаю, як зробити, щоб ти могла видаляти те, що зробила(</h3>
+
+</body>
+
+</html>
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: papayawhip;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+ul li:hover {
+    background: #ddd;
+}
+
+ul li.checked {
+    background: #888888;
+    color: #fff;
+    text-decoration: line-through;
+}
+
+ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2 px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+.close {
+position: absolute;
+right: 0;
+top: 0;
+padding: 12px 16px 12px 16px;
+}
+
+.close.hover {
+    background-color: plum;
+    color: white;
+}
+
+.header {
+    background-color: lightsalmon;
+    padding: 50px 60px;
+    color: white;
+    text-align: center;
+}
+
+.header::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input {
+    margin: 0;
+    border: solid;
+    border-radius: 0;
+    width: 45%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+
+.addBtn {
+    padding: 10px;
+    width: 25%;
+    background: lightskyblue;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addBtn:hover {
+    background-color: #bbb;
+}
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+    close[i].onclick = function () {
+        var div = this.parentElement;
+        div.style.display = "none";
+    }
+}
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+    if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+    }
+}, false);
+
+function newElement() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("myInput").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    if (inputValue === '') {
+        alert("Не канає, мусиш щось написати");
+    } else {
+
+        document.getElementById("myUL").appendChild(li);
+    }
+
+    document.getElementById("myInput").value = "";
+    
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+} 
